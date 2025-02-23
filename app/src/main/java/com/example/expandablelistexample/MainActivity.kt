@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -50,7 +52,10 @@ fun ExpandableList(modifier: Modifier = Modifier) {
         Item("Item 3", "This is the description for item 3")
     )
 
-    LazyColumn(modifier = modifier) {
+    LazyColumn(
+        modifier = modifier,
+        contentPadding = PaddingValues(8.dp)
+    ) {
         items(sampleData) { item ->
             ExpandableItem(item = item)
         }
@@ -63,7 +68,8 @@ fun ExpandableItem(item: Item, modifier: Modifier = Modifier) {
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .padding(8.dp),
+            .padding(4.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
         onClick = { expanded = !expanded }) {
         Column(
             modifier = Modifier
@@ -73,7 +79,10 @@ fun ExpandableItem(item: Item, modifier: Modifier = Modifier) {
             Text(modifier = Modifier.padding(8.dp), text = item.title)
             if (expanded) {
                 Spacer(modifier = Modifier.height(8.dp))
-                Text(text = item.description, modifier = Modifier.padding(start = 16.dp))
+                Text(
+                    text = item.description,
+                    modifier = Modifier.padding(start = 16.dp)
+                )
             }
         }
     }
